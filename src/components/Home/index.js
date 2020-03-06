@@ -7,7 +7,7 @@ const Home = () => (
         <Row>
             <Col sm={12} className="text-center">
                 <h1 className="oswald title-home">
-                    &nbsp;Bienvenido al Sistema&nbsp;
+                    &nbsp;Agenda Virtual&nbsp;
                 </h1>
             </Col>
         </Row>

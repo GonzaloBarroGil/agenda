@@ -14,8 +14,7 @@ class ContactTable extends PureComponent {
         const {contacts} = this.props;
 
         return (
-            <>
-                <Link to="/contacts/new">Nuevo contacto</Link>
+            <div>
                 <Table bordered condensed hover stripped size="sm">
                     <thead>
                         <tr>
@@ -49,7 +48,10 @@ class ContactTable extends PureComponent {
                         ))}
                     </tbody>
                 </Table>
-            </>
+                <div style={{"text-align": "right"}}>
+                    <button type="button" class="btn btn-outline-info" to="/contacts/new">Nuevo contacto</button>
+                </div>
+            </div>
         );
     }
 }
