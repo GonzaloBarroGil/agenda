@@ -3,11 +3,11 @@ import {
 } from 'redux-saga/effects';
 
 import {FETCH_CONTACTS_REQUESTED, SUBMIT_CONTACT_DATA_REQUESTED, FETCH_CONTACT_REQUESTED} from '@actions/contacts';
-import {FETCH_DEPARMENTS_REQUESTED, SUBMIT_DEPARMENT_DATA_REQUESTED, FETCH_DEPARMENT_REQUESTED} from '@actions/deparment';
+import {FETCH_DEPARTMENTS_REQUESTED, SUBMIT_DEPARTMENT_DATA_REQUESTED, FETCH_DEPARTMENT_REQUESTED} from '@actions/deparTment';
 
 
 import {fetchContacts, submitContactData, fetchContact} from './contacts';
-import {fetchDeparments, submitDeparmentData, fetchDeparment} from './deparments';
+import {fetchDepartments, submitDepartmentData, fetchDepartment} from './departments';
 
 export default function* root() {
     yield all([
@@ -15,9 +15,9 @@ export default function* root() {
         takeEvery(SUBMIT_CONTACT_DATA_REQUESTED, submitContactData),
         takeEvery(FETCH_CONTACT_REQUESTED, fetchContact)
 
-        takeEvery(FETCH_DEPARMENTS_REQUESTED, fetchDeparments),
-        takeEvery(SUBMIT_DEPARMENT_DATA_REQUESTED, submitDeparmentData),
-        takeEvery(FETCH_DEPARMENT_REQUESTED, fetchDeparment)
+        takeEvery(FETCH_DEPARTMENTS_REQUESTED, fetchDepartments),
+        takeEvery(SUBMIT_DEPARTMENT_DATA_REQUESTED, submitDepartmentData),
+        takeEvery(FETCH_DEPARTMENT_REQUESTED, fetchDepartment)
 
 
     ]);

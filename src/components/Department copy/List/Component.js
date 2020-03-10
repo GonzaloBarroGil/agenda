@@ -5,13 +5,13 @@
 
 // import {Link} from 'react-router-dom';
 
-// class DeparmentTable extends PureComponent {
+// class DepartmentTable extends PureComponent {
 //     componentDidMount() {
-//         this.props.fetchDeparments();
+//         this.props.fetchDepartments();
 //     }
 
 //     render() {
-//         const {deparments} = this.props;
+//         const {departments} = this.props;
 
 //         return (
 //             <>

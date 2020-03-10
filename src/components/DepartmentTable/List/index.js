@@ -7,11 +7,11 @@ import Component from './Component';
 
 // Store Redux - StaticData
 const mapStateToProps = state => ({
-    departments: fromState.Departments.getDeparments()(state)
+    departments: fromState.Departments.getDepartments()(state)
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchDeparments: () => dispatch(fetchDeparmentsRequested())
+    fetchDepartments: () => dispatch(fetchDepartmentsRequested())
 });
 
 export default connect(
