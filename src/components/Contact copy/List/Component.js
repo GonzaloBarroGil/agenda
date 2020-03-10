@@ -15,7 +15,7 @@ class ContactTable extends PureComponent {
 
         return (
             <>
-                <Link to="/contacts/new">Nuevo contacto</Link>
+                <Button class="btn btn-outline-info" to="/contacts/new">Nuevo contacto</Button>
                 <Table bordered condensed hover stripped size="sm">
                     <thead>
                         <tr>

@@ -96,7 +96,10 @@ class Header extends Component {
                     onShow={e => this.onShow(e)}
                 >
                     <header className="hidden-print">
-                        <Media object src={logo} className="logo d-flex justify-content-center"/>
+                        <a href="https://www.indec.gob.ar/" id="localhost">
+                            <Media object src={logo} className="logo d-flex justify-content-center img-responsive"/>
+
+                        </a>
                         <Navbar expand="lg" fixed={!isVisible ? 'top' : ''}>
                             <NavbarToggler onClick={() => this.toggleNavbar()}/>
                             <Collapse isOpen={this.state.isCollapse} navbar>

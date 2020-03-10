@@ -20,8 +20,15 @@ const Footer = () => (
                     &nbsp;- 2020
                 </quote>
             </Col>
+            <Col sm={4} md={4} className="m-0 p-0 mt-2 mr-1 pr-1">
+                <div className="version small">
+                    Noe/Guada/Flor/JuanMa&nbsp;
+                    <br/>
+                </div>
+            </Col>
         </Row>
     </footer>
+
 );
 
 export default Footer;
