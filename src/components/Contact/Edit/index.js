@@ -6,8 +6,7 @@ import map from 'lodash/map';
 import {
     fetchContactRequested,
     submitContactDataRequested,
-    updateContactData,
-    fetchContactsSucceeded
+    updateContactData
 } from '@actions/contacts';
 
 import Component from './Component';

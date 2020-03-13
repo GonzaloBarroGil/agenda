@@ -13,19 +13,19 @@ import {
 
 class FormBuilder extends PureComponent {
     componentDidMount() {
-        console.log(this.props.match);
         if (this.props.match.params.id) {
             this.props.fetchDepartment(this.props.match.params.id);
+        } else {
+            this.props.updateDepartment({});
         }
     }
 
     render() {
         const {
             fields,
-            submitContactData
+            submitDepartmentData
         } = this.props;
 
-        console.log(fields);
         return (
             <Container fluid>
                 <Form>
@@ -36,6 +36,7 @@ class FormBuilder extends PureComponent {
                                 <br/>
                                 <Input
                                     key={field.control}
+                                    name={field.control}
                                     {...field}
                                 />
                             </Label>

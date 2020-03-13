@@ -6,8 +6,7 @@ import map from 'lodash/map';
 import {
     fetchDepartmentRequested,
     submitDepartmentDataRequested,
-    updateDepartmentData,
-    fetchDepartmentsSucceeded
+    updateDepartmentData
 } from '@actions/departments';
 
 import Component from './Component';
@@ -21,47 +20,52 @@ const fields = [
         type: 'text'
     },
     {
+        control: 'phoneNumber',
+        label: 'Número de teléfono',
+        path: 'phoneNumber',
+        value: null,
+        type: 'text'
+    },
+    {
+        control: 'address',
+        label: 'Dirección',
+        path: 'address',
+        value: null,
+        type: 'text'
+    },
+    {
         control: 'description',
         label: 'Descripción',
         path: 'description',
         value: null,
         type: 'text'
-    },
-    {
-        control: 'phoneNumber',
-        label: 'Número de teléfono',
-        path: 'phoneNumber',
-        value: null,
-        type: 'phone'
     }
 ];
 
-// Store Redux - StaticData
 const mapStateToProps = state => {
     const department = get(state, 'departments.department', {});
-    const cFields = map(fields, field => ({
+    const dFields = map(fields, field => ({
         ...field,
         value: get(department, field.path, '')
     }));
     return {
         department,
-        fields: cFields
+        fields: dFields
     };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
     fetchDepartment: id => dispatch(fetchDepartmentRequested(id)),
     submitDepartmentData: () => dispatch(submitDepartmentDataRequested()),
-    updateDepartment: Department => dispatch(updateDepartmentData(Department))
+    updateDepartment: department => dispatch(updateDepartmentData(department))
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => {
     const {updateDepartment} = dispatchProps;
     const mergeFields = map(stateProps.fields, field => ({
         ...field,
-        onChange: ({target: {value}}) => updateDepartment(set(stateProps.contact, field.path, value))
+        onChange: ({target: {value}}) => updateDepartment(set(stateProps.department, field.path, value))
     }));
-    console.log(mergeFields);
     return {
         ...dispatchProps,
         ...ownProps,

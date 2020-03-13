@@ -2,7 +2,7 @@ import Http from './http';
 
 const API = 'api/departments';
 
-class Departments {
+class Department {
     static fetchDepartments() {
         return Http.get(API);
     }
@@ -11,12 +11,12 @@ class Departments {
         return Http.get(`${API}/${id}`);
     }
 
-    static submitDepartments(departments) {
-        if (!departments.id) {
-            return Http.post(API, {...departments});
+    static submitDepartment(department) {
+        if (!department.id) {
+            return Http.post(API, {...department});
         }
-        return Http.put(`${API}/${departments.id}`, {...departments});
+        return Http.put(`${API}/${department.id}`, {...department});
     }
 }
 
-export default Departments;
+export default Department;

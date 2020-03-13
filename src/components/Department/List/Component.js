@@ -1,46 +1,58 @@
 import React, {PureComponent} from 'react';
 import {
+    Table,
     Button,
     Col,
     Container,
-    Row,
-    Table
+    Row
+
 } from 'reactstrap';
 
 import {Link} from 'react-router-dom';
 
 class DepartmentTable extends PureComponent {
     componentDidMount() {
-        console.log('componentDidMount');
         this.props.fetchDepartments();
     }
 
     render() {
         const {departments} = this.props;
-        /* this.props.contacts.forEach(contact => {
-            if (contact.name.indexOf(this.props.filterText) === -1) {
-                return;
-            }
-            rows.push(<ContactRow contact={contact}/>);
-        }); */
+
         return (
             <Container>
                 <Row>
-                    <Col sm={12}>
+                    <Col>
+                        <Button
+                            className="float-right"
+                            color="primary"
+                            size="lg"
+                            tag={Link}
+                            to="/departments/new"
+                        >
+                            Nuevo departamento
+                        </Button>
+                    </Col>
+                </Row>
+                <hr/>
+                <Row>
+                    <Col>
                         <Table bordered condensed hover stripped size="sm">
                             <thead>
                                 <tr>
-                                    <th>Departamentos</th>
-                                    <th>Descripcion</th>
-                                    <th>Telefono</th>
+                                    <th>Nombre</th>
+                                    <th>Número de teléfono</th>
+                                    <th>Dirección</th>
+                                    <th>Descripción</th>
+                                    <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {departments.map(department => (
                                     <tr>
                                         <td>{department.name}</td>
-                                        <td>{department.description}</td>
                                         <td>{department.phoneNumber}</td>
+                                        <td>{department.address}</td>
+                                        <td>{department.description}</td>
                                         <td>
                                             <Link to={`/departments/${department.id}`}>Edit</Link>
                                         </td>
