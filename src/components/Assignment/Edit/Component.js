@@ -1,33 +1,31 @@
 import React, {PureComponent} from 'react';
 import map from 'lodash/map';
 import {
-    Container,
-    Row,
-    Col,
     Button,
+    Container,
     Form,
     FormGroup,
-    Label,
-    Input
+    Input,
+    Label
 } from 'reactstrap';
+
+import {Link} from 'react-router-dom';
 
 class FormBuilder extends PureComponent {
     componentDidMount() {
-        console.log(this.props.match);
-        if (this.props.match.params.id) {
-            this.props.fetchContact(this.props.match.params.id);
-        }
+        this.props.fetchContacts();
+        this.props.fetchDepartments();
     }
 
     render() {
         const {
             fields,
-            submitContactData
+            submitAssignmentData,
+            assignment
         } = this.props;
 
-        console.log(fields);
         return (
-            <Container fluid>
+            <Container>
                 <Form>
                     {map(fields, field => (
                         <FormGroup>
@@ -36,15 +34,24 @@ class FormBuilder extends PureComponent {
                                 <br/>
                                 <Input
                                     key={field.control}
+                                    name={field.control}
                                     {...field}
-                                />
+                                >
+                                    {!field.value && (<option>[Seleccione]</option>)}
+                                    {map(field.options, opt => (
+                                        <option value={opt.id}>
+                                            {opt.name ? `${opt.name} - ${opt.address}` : `${opt.firstName} ${opt.lastName}`}
+                                        </option>
+                                    ))}
+                                </Input>
                             </Label>
                         </FormGroup>
                     ))}
                     <Button
-                        onClick={() => submitContactData()}
+                        onClick={() => submitAssignmentData()}
+                        disabled={!assignment.contact || !assignment.department}
                     >
-                        Submit
+                        Guardar
                     </Button>
                 </Form>
             </Container>

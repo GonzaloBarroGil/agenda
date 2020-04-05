@@ -6,8 +6,7 @@ import map from 'lodash/map';
 import {
     fetchContactRequested,
     submitContactDataRequested,
-    updateContactData,
-    fetchContactsSucceeded
+    updateContactData
 } from '@actions/contacts';
 
 import Component from './Component';
@@ -39,7 +38,7 @@ const fields = [
         label: 'Sexo',
         path: 'gender',
         value: null,
-        type: 'text'
+        type: 'select'
     },
     {
         control: 'birthDate',
@@ -60,7 +59,7 @@ const fields = [
         label: 'Dirección',
         path: 'address',
         value: null,
-        type: 'phone'
+        type: 'text'
     },
     {
         control: 'role',
@@ -78,16 +77,19 @@ const fields = [
     }
 ];
 
-// Store Redux - StaticData
+const genders = ['Femenino', 'Masculino', 'Otro'];
+
 const mapStateToProps = state => {
     const contact = get(state, 'contacts.contact', {});
     const cFields = map(fields, field => ({
         ...field,
         value: get(contact, field.path, '')
     }));
+
     return {
         contact,
-        fields: cFields
+        fields: cFields,
+        genderOptions: genders
     };
 };
 
@@ -103,11 +105,11 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
         ...field,
         onChange: ({target: {value}}) => updateContact(set(stateProps.contact, field.path, value))
     }));
-    console.log(mergeFields);
     return {
         ...dispatchProps,
         ...ownProps,
-        fields: mergeFields
+        fields: mergeFields,
+        genderOptions: genders
     };
 };
 

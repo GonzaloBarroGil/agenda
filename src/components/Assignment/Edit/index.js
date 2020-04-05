@@ -1,113 +1,74 @@
 import {connect} from 'react-redux';
-import get from 'lodash/get';
-import set from 'lodash/set';
-import map from 'lodash/map';
+import {set, map} from 'lodash';
 
 import {
-    fetchContactRequested,
-    submitContactDataRequested,
-    updateContactData,
-    fetchContactsSucceeded
-} from '@actions/contacts';
+    submitAssignmentDataRequested,
+    updateAssignmentData
+} from '@actions/assignments';
+
+import {fetchContactsRequested} from '@actions/contacts';
+import {fetchDepartmentsRequested} from '@actions/departments';
+import fromState from '@selectors';
 
 import Component from './Component';
 
 const fields = [
     {
-        control: 'firstName',
-        label: 'Nombre',
-        path: 'firstName',
+        control: 'contacts',
+        label: 'Contacto',
+        path: 'contact',
         value: null,
-        type: 'text'
+        type: 'select'
     },
     {
-        control: 'lastName',
-        label: 'Apellido',
-        path: 'lastName',
+        control: 'departments',
+        label: 'Departamento',
+        path: 'department',
         value: null,
-        type: 'text'
-    },
-    {
-        control: 'email',
-        label: 'Email',
-        path: 'email',
-        value: null,
-        type: 'text'
-    },
-    {
-        control: 'gender',
-        label: 'Sexo',
-        path: 'gender',
-        value: null,
-        type: 'text'
-    },
-    {
-        control: 'birthDate',
-        label: 'Fecha de nacimiento',
-        path: 'birthDate',
-        value: null,
-        type: 'date'
-    },
-    {
-        control: 'phoneNumber',
-        label: 'Número de teléfono',
-        path: 'phoneNumber',
-        value: null,
-        type: 'phone'
-    },
-    {
-        control: 'address',
-        label: 'Dirección',
-        path: 'address',
-        value: null,
-        type: 'phone'
-    },
-    {
-        control: 'role',
-        label: 'Cargo',
-        path: 'role',
-        value: null,
-        type: 'text'
-    },
-    {
-        control: 'notes',
-        label: 'Notas',
-        path: 'notes',
-        value: null,
-        type: 'text'
+        type: 'select'
     }
 ];
 
+const getOptions = (control, state) => {
+    if (control === 'contacts') {
+        return fromState.Contacts.getContacts()(state);
+    }
+
+    return fromState.Departments.getDepartments()(state);
+};
+
 // Store Redux - StaticData
 const mapStateToProps = state => {
-    const contact = get(state, 'contacts.contact', {});
-    const cFields = map(fields, field => ({
+    const aFields = map(fields, field => ({
         ...field,
-        value: get(contact, field.path, '')
+        options: getOptions(field.control, state),
+        value: fromState.Assignments.getAssignment(field.path)(state)
     }));
+
     return {
-        contact,
-        fields: cFields
+        assignment: fromState.Assignments.getAssignment()(state),
+        fields: aFields
     };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-    fetchContact: id => dispatch(fetchContactRequested(id)),
-    submitContactData: () => dispatch(submitContactDataRequested()),
-    updateContact: contact => dispatch(updateContactData(contact))
+const mapDispatchToProps = dispatch => ({
+    fetchContacts: () => dispatch(fetchContactsRequested()),
+    fetchDepartments: () => dispatch(fetchDepartmentsRequested()),
+    submitAssignmentData: () => dispatch(submitAssignmentDataRequested()),
+    updateAssignment: assignment => dispatch(updateAssignmentData(assignment))
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => {
-    const {updateContact} = dispatchProps;
+    const {updateAssignment} = dispatchProps;
     const mergeFields = map(stateProps.fields, field => ({
         ...field,
-        onChange: ({target: {value}}) => updateContact(set(stateProps.contact, field.path, value))
+        onChange: ({target: {value}}) => updateAssignment(set({...stateProps.assignment}, field.path, value))
     }));
-    console.log(mergeFields);
     return {
         ...dispatchProps,
         ...ownProps,
-        fields: mergeFields
+        fields: mergeFields,
+        assignment: stateProps.assignment
     };
 };
 

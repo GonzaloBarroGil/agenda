@@ -14,21 +14,17 @@ import {
 class FormBuilder extends PureComponent {
     componentDidMount() {
         if (this.props.match.params.id) {
-            this.props.fetchContact(this.props.match.params.id);
+            this.props.fetchDepartment(this.props.match.params.id);
         } else {
-            this.props.updateContact({});
+            this.props.updateDepartment({});
         }
     }
 
     render() {
         const {
             fields,
-            genderOptions,
-            submitContactData
+            submitDepartmentData
         } = this.props;
-
-        console.log(fields, 'Campos');
-        console.log(genderOptions, 'genderOptions');
 
         return (
             <Container fluid>
@@ -42,18 +38,12 @@ class FormBuilder extends PureComponent {
                                     key={field.control}
                                     name={field.control}
                                     {...field}
-                                >
-                                    {map(genderOptions, gender => (
-                                        <option value={gender}>
-                                            {gender}
-                                        </option>
-                                    ))}
-                                </Input>
+                                />
                             </Label>
                         </FormGroup>
                     ))}
                     <Button
-                        onClick={() => submitContactData()}
+                        onClick={() => submitDepartmentData()}
                     >
                         Submit
                     </Button>
